@@ -20,6 +20,13 @@ public static class GameRules
 {
     public static bool IsCorrect(PlayerOption option, NightType night)
     {
-        throw new NotImplementedException();
+        return (option, night) switch
+        {
+            (PlayerOption.Umbrella, NightType.Rainy) => true,
+            (PlayerOption.WaterPump, NightType.Fire) => true,
+            (PlayerOption.Tent, NightType.Windy) => true,
+            (PlayerOption.Blanket, NightType.Cold) => true,
+            _ => false
+        };
     }
 }

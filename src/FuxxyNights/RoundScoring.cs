@@ -10,11 +10,14 @@ public static class RoundScoring
 {
     public static RoundResult Evaluate(PlayerOption option, NightType night)
     {
-        throw new NotImplementedException();
+        var isCorrect = GameRules.IsCorrect(option, night);
+        var points = isCorrect ? 10 : 0;
+
+        return new RoundResult(option, night, isCorrect, points);
     }
 
     public static int CalculateTotalScore(IEnumerable<RoundResult> rounds)
     {
-        throw new NotImplementedException();
+        return rounds.Sum(x => x.Points);
     }
 }

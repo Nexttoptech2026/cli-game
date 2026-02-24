@@ -8,10 +8,12 @@ public sealed record RoundResult(
 
 public static class RoundScoring
 {
+    public const int PointsPerWin = 10;
+
     public static RoundResult Evaluate(PlayerOption option, NightType night)
     {
         var isCorrect = GameRules.IsCorrect(option, night);
-        var points = isCorrect ? 10 : 0;
+        var points = isCorrect ? PointsPerWin : 0;
 
         return new RoundResult(option, night, isCorrect, points);
     }

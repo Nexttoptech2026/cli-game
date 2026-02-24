@@ -5,6 +5,7 @@ var session = new GameSession(() => NextNight(random));
 
 Console.WriteLine("Welcome to FuxxyNights!");
 Console.WriteLine("Survive 10 nights by choosing the right item.");
+Console.WriteLine("You can type a number (1-4) or the item name.");
 Console.WriteLine();
 
 session.Play(PromptForOption, Console.WriteLine);
@@ -20,24 +21,16 @@ static PlayerOption PromptForOption(int roundNumber)
         Console.WriteLine("2) Water pump -> beats fire night");
         Console.WriteLine("3) Tent -> beats windy night");
         Console.WriteLine("4) Blanket -> beats cold night");
-        Console.Write("Your choice (1-4): ");
+        Console.Write("Your choice: ");
 
         var input = Console.ReadLine();
 
-        switch (input)
+        if (PlayerOptionParser.TryParse(input, out var option))
         {
-            case "1":
-                return PlayerOption.Umbrella;
-            case "2":
-                return PlayerOption.WaterPump;
-            case "3":
-                return PlayerOption.Tent;
-            case "4":
-                return PlayerOption.Blanket;
-            default:
-                Console.WriteLine("Invalid choice. Enter a number from 1 to 4.");
-                break;
+            return option;
         }
+
+        Console.WriteLine("Invalid choice. Enter 1-4 or item name (umbrella, water pump, tent, blanket).");
     }
 }
 

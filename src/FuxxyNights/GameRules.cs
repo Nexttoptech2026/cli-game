@@ -18,15 +18,17 @@ public enum NightType
 
 public static class GameRules
 {
+    private static readonly IReadOnlyDictionary<PlayerOption, NightType> WinningNightByOption =
+        new Dictionary<PlayerOption, NightType>
+        {
+            [PlayerOption.Umbrella] = NightType.Rainy,
+            [PlayerOption.WaterPump] = NightType.Fire,
+            [PlayerOption.Tent] = NightType.Windy,
+            [PlayerOption.Blanket] = NightType.Cold
+        };
+
     public static bool IsCorrect(PlayerOption option, NightType night)
     {
-        return (option, night) switch
-        {
-            (PlayerOption.Umbrella, NightType.Rainy) => true,
-            (PlayerOption.WaterPump, NightType.Fire) => true,
-            (PlayerOption.Tent, NightType.Windy) => true,
-            (PlayerOption.Blanket, NightType.Cold) => true,
-            _ => false
-        };
+        return WinningNightByOption.TryGetValue(option, out var expectedNight) && expectedNight == night;
     }
 }
